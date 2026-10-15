@@ -1,0 +1,1206 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Access Trail | SecurDI</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+
+:root {
+  --bg: #07121d;
+  --p: #0d1e2d;
+  --p2: #10283a;
+  --line: #294357;
+  --text: #edf6fb;
+  --muted: #a0b5c5;
+  --blue: #7bdcf3;
+  --gold: #e5c47d;
+  --red: #f19b9b;
+  --green: #8adbb6;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: radial-gradient(ellipse at 80% 0, #153852 0, transparent 40%), var(--bg);
+  color: var(--text);
+  font-family: Lato, Arial, sans-serif;
+  min-height: 100vh;
+}
+
+body:before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .2;
+  background-image:
+    linear-gradient(#7bdcf30b 1px, transparent 1px),
+    linear-gradient(90deg, #7bdcf30b 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+button, textarea { font: inherit; }
+button { cursor: pointer; }
+
+.shell {
+  max-width: 1120px;
+  margin: auto;
+  padding: 26px 24px 60px;
+  position: relative;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+  font-size: 11px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.brand { color: var(--blue); font-weight: 900; }
+.muted { color: var(--muted); }
+
+.hero {
+  padding: 48px 0 30px;
+  max-width: 800px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: clamp(46px, 7vw, 80px);
+  line-height: .95;
+  letter-spacing: -.05em;
+  margin: 15px 0 20px;
+}
+
+h1 span { color: var(--blue); }
+
+.lede {
+  font-size: 17px;
+  line-height: 1.7;
+  color: #c0cfda;
+  max-width: 720px;
+  margin: 0;
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 22px;
+}
+
+.pill {
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  color: #c4d4df;
+}
+
+.pill:first-child {
+  color: var(--blue);
+  border-color: #3a718a;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 15px;
+  margin: 26px 0 12px;
+}
+
+.head h2 { font-size: 22px; margin: 0 0 5px; }
+.head p { font-size: 12px; color: var(--muted); margin: 0; }
+
+.progress {
+  height: 3px;
+  background: #1c3345;
+  margin-bottom: 25px;
+}
+
+.fill {
+  height: 100%;
+  width: 0;
+  background: var(--blue);
+  transition: width .25s;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1.4fr .9fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.panel {
+  background: linear-gradient(145deg, #102538f5, #0a1927fa);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.ph {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 19px;
+  border-bottom: 1px solid var(--line);
+}
+
+.label {
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--blue);
+  font-weight: 700;
+}
+
+.body { padding: 21px; }
+
+.time {
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.storytitle {
+  font-size: 26px;
+  margin: 0 0 13px;
+  line-height: 1.15;
+}
+
+.copy {
+  font-size: 14px;
+  line-height: 1.75;
+  color: #bdcbd6;
+  margin: 0 0 13px;
+}
+
+.copy strong { color: var(--text); }
+
+.note {
+  border-left: 2px solid var(--gold);
+  background: #e5c47d0d;
+  padding: 13px 15px;
+  font-size: 13px;
+  line-height: 1.65;
+  color: #d8d4c9;
+  margin: 17px 0;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.primary, .secondary {
+  padding: 12px 16px;
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+.primary {
+  background: var(--blue);
+  color: #06131c;
+  border: 1px solid var(--blue);
+}
+
+.primary:hover { background: #a4edfa; }
+
+.secondary {
+  background: transparent;
+  border: 1px solid #3b596e;
+  color: var(--text);
+}
+
+.secondary:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.elist { display: grid; gap: 9px; }
+
+.evidence {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-align: left;
+  background: #0a1926;
+  border: 1px solid #243e51;
+  padding: 13px;
+  color: var(--text);
+}
+
+.evidence:hover, .evidence.opened {
+  border-color: #5798b4;
+  background: #10283a;
+}
+
+.ico {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #31566b;
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 900;
+  flex: none;
+}
+
+.etitle {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.esub {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.estate {
+  margin-left: auto;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--muted);
+}
+
+.tip {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+  border-top: 1px solid var(--line);
+  padding: 14px 19px;
+}
+
+.drawer {
+  display: none;
+  margin-top: 15px;
+  border: 1px solid #3b6078;
+  background: #091724;
+}
+
+.drawer.show {
+  display: block;
+  animation: fade .2s;
+}
+
+.drawercontent { padding: 20px; }
+
+.drawercontent h3 {
+  margin: 0 0 12px;
+  font-size: 19px;
+}
+
+.drawercontent p, .drawercontent li {
+  color: #c3d1dc;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.drawercontent p { margin: 0 0 12px; }
+.drawercontent ul { padding-left: 20px; }
+
+.data {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 12px;
+}
+
+.data th, .data td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #294052;
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.data th {
+  font-size: 9px;
+  color: var(--blue);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.data td { color: #c4d1db; }
+
+.tag {
+  display: inline-block;
+  border: 1px solid #48677c;
+  padding: 3px 6px;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.warn { color: var(--gold); border-color: #816c46; }
+.bad { color: var(--red); border-color: #87514f; }
+
+.finding { margin-top: 25px; }
+
+.finding textarea {
+  width: 100%;
+  min-height: 125px;
+  background: #081521;
+  border: 1px solid #2b465b;
+  padding: 14px;
+  color: var(--text);
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.finding textarea::placeholder { color: #72899a; }
+
+.hint {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 9px 0 0;
+}
+
+.reveal { display: none; margin-top: 20px; }
+.reveal.show { display: block; animation: fade .3s; }
+
+.revealtop {
+  padding: 22px;
+  background: linear-gradient(110deg, #133a50, #0c2434);
+  border-bottom: 1px solid #2d5065;
+}
+
+.revealtop h2 { font-size: 29px; margin: 10px 0; }
+
+.revealtop p {
+  color: #c4d4de;
+  line-height: 1.7;
+  font-size: 14px;
+  margin: 0;
+}
+
+.path {
+  display: flex;
+  gap: 7px;
+  align-items: stretch;
+  flex-wrap: wrap;
+  margin: 18px 0;
+}
+
+.node {
+  flex: 1;
+  min-width: 100px;
+  text-align: center;
+  padding: 13px 8px;
+  border: 1px solid #2b4c62;
+  background: #0a1b29;
+}
+
+.node b {
+  display: block;
+  color: var(--blue);
+  font-size: 12px;
+  margin-bottom: 7px;
+}
+
+.node small {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.arrow { align-self: center; color: var(--gold); }
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 11px;
+}
+
+.rcard {
+  padding: 16px;
+  background: #0a1926;
+  border: 1px solid var(--line);
+}
+
+.rcard h3 {
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin: 0 0 9px;
+}
+
+.rcard p {
+  font-size: 12px;
+  line-height: 1.7;
+  color: #c0ced8;
+  margin: 0;
+}
+
+.submitbox {
+  margin-top: 22px;
+  padding: 20px;
+  border: 1px solid #31566b;
+  background: #0a1926;
+}
+
+.submitgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.submitbox label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 7px;
+}
+
+.submitbox input {
+  width: 100%;
+  padding: 12px;
+  background: #071521;
+  border: 1px solid #2b465b;
+  color: var(--text);
+  font: inherit;
+}
+
+.submitbox input:focus {
+  outline: 1px solid var(--blue);
+  border-color: var(--blue);
+}
+
+.submitstatus {
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 12px;
+  color: var(--muted);
+}
+
+.hidden { display: none !important; }
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  border-top: 1px solid var(--line);
+  padding-top: 17px;
+  margin-top: 34px;
+  font-size: 10px;
+  line-height: 1.6;
+  color: #7890a2;
+}
+
+@keyframes fade {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 760px) {
+  .layout { grid-template-columns: 1fr; }
+  .hero { padding-top: 35px; }
+  .grid { grid-template-columns: 1fr; }
+  .head { align-items: flex-start; flex-direction: column; }
+  .node { min-width: calc(50% - 10px); }
+}
+
+@media (max-width: 480px) {
+  .submitgrid { grid-template-columns: 1fr; }
+  .shell { padding: 18px 13px 42px; }
+  .top { flex-direction: column; }
+  .lede { font-size: 15px; }
+  .storytitle { font-size: 23px; }
+  .footer { flex-direction: column; }
+  .node { min-width: 100%; }
+  .arrow { transform: rotate(90deg); align-self: center; }
+}
+</style>
+</head>
+
+<body>
+<div class="shell">
+
+<header class="top">
+  <div class="brand">
+    SecurDI
+    <span style="font-weight:400;color:#9bb0c1">/ Security, Under the Surface</span>
+  </div>
+  <div class="muted">Internal Investigation · Case 014</div>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">Identity Security Investigation</div>
+  <h1>The Access <span>Trail.</span></h1>
+  <p class="lede">
+    A sensitive production export has occurred. No administrator account appears
+    compromised. The access policies look valid. Examine the evidence, connect
+    the identities, and discover what the controls failed to reveal.
+  </p>
+  <div class="pills">
+    <span class="pill">Fictional incident simulation</span>
+    <span class="pill">15–20 minutes</span>
+    <span class="pill">Explore evidence · Submit one finding</span>
+  </div>
+</section>
+
+<div class="head">
+  <div>
+    <h2 id="stageTitle">01 / The alert</h2>
+    <p id="stageSub">Read the incident briefing to begin the investigation.</p>
+  </div>
+  <div class="muted" id="stageNo" style="font-size:10px;letter-spacing:.13em">
+    STAGE 01 OF 04
+  </div>
+</div>
+
+<div class="progress"><div class="fill" id="fill"></div></div>
+
+<div id="investigation">
+  <div class="layout">
+
+    <section class="panel">
+      <div class="ph">
+        <span class="label">Incident briefing</span>
+        <span class="muted" style="font-size:10px">17:42 UTC</span>
+      </div>
+
+      <div class="body">
+        <div class="time">Monday · 4:17 PM · Production environment</div>
+        <h2 class="storytitle">An export nobody expected.</h2>
+
+        <p class="copy">
+          The monitoring team flags an unusual export of customer records from
+          a production service. The request was accepted by a workload identity
+          used by the deployment platform.
+        </p>
+
+        <p class="copy">
+          The first review finds no direct administrator role on the contractor
+          account active in the engineering workspace. The service identity is
+          approved for production automation. The secret was accessed using an
+          authenticated session.
+        </p>
+
+        <p class="copy">
+          <strong>Nothing in the first-pass checks is an obvious violation.</strong>
+          The incident response lead asks you to reconstruct how the request
+          could have happened.
+        </p>
+
+        <div class="note">
+          Your objective: identify the underlying identity-security weakness.
+          Use only what the case evidence supports; don't guess the attacker
+          or invent missing facts.
+        </div>
+
+        <div class="actions">
+          <button class="primary" id="begin">Begin investigation →</button>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel">
+      <div class="ph">
+        <span class="label">Evidence locker</span>
+        <span class="muted" id="count" style="font-size:10px">0 / 4 opened</span>
+      </div>
+
+      <div class="body">
+        <p class="copy" style="font-size:12px;margin-top:0">
+          Inspect each item. Evidence can be revisited at any time.
+        </p>
+
+        <div class="elist">
+          <button class="evidence" data-key="identity">
+            <span class="ico">ID</span>
+            <span>
+              <span class="etitle">Exhibit A · Identity profile</span>
+              <span class="esub">Contractor account and workspace access</span>
+            </span>
+            <span class="estate">Sealed</span>
+          </button>
+
+          <button class="evidence" data-key="workload">
+            <span class="ico">WI</span>
+            <span>
+              <span class="etitle">Exhibit B · Workload identity</span>
+              <span class="esub">Service principal and permission scope</span>
+            </span>
+            <span class="estate">Sealed</span>
+          </button>
+
+          <button class="evidence" data-key="change">
+            <span class="ico">LOG</span>
+            <span>
+              <span class="etitle">Exhibit C · Change history</span>
+              <span class="esub">A temporary exception and its review trail</span>
+            </span>
+            <span class="estate">Sealed</span>
+          </button>
+
+          <button class="evidence" data-key="architecture">
+            <span class="ico">MAP</span>
+            <span>
+              <span class="etitle">Exhibit D · Architecture note</span>
+              <span class="esub">How the components interact</span>
+            </span>
+            <span class="estate">Sealed</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="tip">
+        Investigation tip: the issue may not be visible in a single account
+        profile. Look at the relationships between them.
+      </div>
+    </aside>
+
+  </div>
+
+  <section class="drawer" id="drawer">
+    <div class="ph">
+      <span class="label" id="clueLabel">Evidence</span>
+      <button class="secondary" id="close" style="padding:7px 10px">Close ×</button>
+    </div>
+    <div class="drawercontent" id="clue"></div>
+  </section>
+
+  <section class="panel finding">
+    <div class="ph">
+      <span class="label">Your investigation notes</span>
+      <span class="muted" style="font-size:10px">Free-form finding</span>
+    </div>
+
+    <div class="body">
+      <h2 class="storytitle" style="font-size:22px">What is the blind spot?</h2>
+
+      <p class="copy">
+        Describe the path you believe made the production action possible.
+        Identify the design weakness—not just the account involved.
+      </p>
+
+      <textarea id="finding"
+        placeholder="Write your finding in your own words. What connects the identities, and where should the investigation focus?"></textarea>
+
+      <p class="hint">
+        No automatic scoring. The goal is to explain your reasoning before
+        viewing the investigation reveal.
+      </p>
+
+      <div class="actions">
+        <button class="primary" id="submit">Submit finding & reveal investigation →</button>
+        <button class="secondary" id="reset">Restart case</button>
+      </div>
+
+      <p class="hint hidden" id="hint">
+        Open all four exhibits and write a short finding to unlock the reveal.
+      </p>
+    </div>
+  </section>
+
+  <section class="panel reveal" id="reveal">
+    <div class="revealtop">
+      <div class="eyebrow">Investigation revealed</div>
+      <h2>The risk lived between the controls.</h2>
+      <p>
+        The case evidence points to an indirect access path: a contractor
+        could access a deployment workspace, the workspace could retrieve
+        a secret, and the secret enabled a workload identity to invoke a
+        production service with broader authority. The key weakness is the
+        combined effective access—not necessarily one invalid permission.
+      </p>
+    </div>
+
+    <div class="body">
+      <h3 style="margin:0 0 8px">The reconstructed access path</h3>
+
+      <p class="copy" style="font-size:12px">
+        Follow the relationship chain that should have been evaluated as a whole.
+      </p>
+
+      <div class="path">
+        <div class="node">
+          <b>Contractor account</b>
+          <small>Workspace access<br>Not a direct admin</small>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node">
+          <b>Deployment workspace</b>
+          <small>Can retrieve a stored secret</small>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node">
+          <b>Workload identity</b>
+          <small>Secret enables service access</small>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node">
+          <b>Production service</b>
+          <small>Broader data permissions</small>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="rcard">
+          <h3>Root cause to examine</h3>
+          <p>
+            Trust and permission relationships were reviewed separately instead
+            of as one effective access path. A valid contractor permission and
+            a valid workload identity permission combined to expose a capability
+            that was not apparent from either profile alone.
+          </p>
+        </div>
+
+        <div class="rcard">
+          <h3>What to validate next</h3>
+          <p>
+            Confirm actual secret-access controls, whether the contractor could
+            use the workspace to obtain or invoke the secret, the workload's
+            exact production scope, and whether logs correlate to this path.
+            These are investigation steps, not assumptions beyond the evidence.
+          </p>
+        </div>
+
+        <div class="rcard">
+          <h3>Architectural response</h3>
+          <p>
+            Restrict deployment-secret access, remove unnecessary paths from
+            workspace users to production credentials, scope workload permissions
+            to required actions and resources, and evaluate effective access
+            across trust relationships.
+          </p>
+        </div>
+
+        <div class="rcard">
+          <h3>Identity security lesson</h3>
+          <p>
+            Least privilege must be evaluated across the full chain. A user may
+            have no direct admin role and still reach powerful capabilities
+            through delegated access, secrets, service principals, or workload
+            identities.
+          </p>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>Discussion prompt:</strong>
+        Which relationship would you validate first in your own environment—and
+        what evidence would prove that the path is closed?
+      </div>
+
+      <section class="submitbox" aria-labelledby="submissionTitle">
+        <div class="eyebrow">Record your finding</div>
+
+        <h2 id="submissionTitle" class="storytitle"
+          style="font-size:22px;margin-top:10px">
+          Send your investigation to SecurDI.
+        </h2>
+
+        <p class="copy">
+          Enter your work details to submit your original finding to the
+          campaign team. Your response will be linked to your HubSpot contact record.
+        </p>
+
+        <form id="hubspotSubmission">
+          <div class="submitgrid">
+            <div>
+              <label for="firstName">First name</label>
+              <input id="firstName" name="firstname"
+                autocomplete="given-name" required>
+            </div>
+
+            <div>
+              <label for="lastName">Last name</label>
+              <input id="lastName" name="lastname"
+                autocomplete="family-name" required>
+            </div>
+
+            <div style="grid-column:1/-1">
+              <label for="workEmail">Work email</label>
+              <input id="workEmail" name="email" type="email"
+                autocomplete="email" required>
+            </div>
+          </div>
+
+          <p class="hint">
+            Your investigation finding will be included automatically.
+            Please use your work email.
+          </p>
+
+          <div class="actions">
+            <button class="primary" id="sendFinding" type="submit">
+              Submit finding to SecurDI →
+            </button>
+          </div>
+
+          <p id="submissionStatus" class="submitstatus"
+            role="status" aria-live="polite">
+            Submission connection needs your HubSpot form details before it can send.
+          </p>
+        </form>
+      </section>
+
+      <div class="actions">
+        <button class="secondary" id="print">Print case summary</button>
+        <button class="secondary" id="again">Run investigation again</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer class="footer">
+  <span>SECURDI · SECURITY, UNDER THE SURFACE</span>
+  <span>Fictional training scenario. No real customer, system, or incident is represented.</span>
+</footer>
+
+</div>
+
+<script>
+// HUBSPOT SETUP:
+// Replace both placeholders with the Portal ID and Form ID from your HubSpot form.
+// Required form fields:
+// firstname, lastname, email, investigation_finding.
+
+const HUBSPOT_PORTAL_ID = "YOUR_HUBSPOT_PORTAL_ID";
+const HUBSPOT_FORM_ID = "YOUR_HUBSPOT_FORM_GUID";
+
+const exhibits = {
+  identity: {
+    label: "EXHIBIT A · IDENTITY PROFILE",
+    title: "Contractor account: N. Patel",
+    html: `
+      <p><strong>Account type:</strong> External contractor · Engineering support</p>
+      <table class="data">
+        <tr><th>Attribute</th><th>Recorded state</th></tr>
+        <tr><td>Direct administrator role</td><td><span class="tag">None assigned</span></td></tr>
+        <tr><td>Deployment workspace</td><td><span class="tag warn">Member</span></td></tr>
+        <tr><td>Workspace purpose</td><td>Build and release troubleshooting</td></tr>
+        <tr><td>Access review</td><td>Workspace membership last reviewed 7 months ago</td></tr>
+      </table>
+      <p>
+        The account has no direct production administrator privileges.
+        It does have access to the deployment workspace. This profile alone
+        does not establish what actions a workspace member can perform through
+        connected systems.
+      </p>`
+  },
+
+  workload: {
+    label: "EXHIBIT B · WORKLOAD IDENTITY",
+    title: "Release automation service principal",
+    html: `
+      <p><strong>Identity type:</strong> Non-human workload identity</p>
+      <table class="data">
+        <tr><th>Attribute</th><th>Recorded state</th></tr>
+        <tr><td>Purpose</td><td>Automated deployment and post-release tasks</td></tr>
+        <tr><td>Credential source</td><td>Secret stored in the deployment workspace</td></tr>
+        <tr><td>Production access</td><td><span class="tag warn">Can invoke customer-data export service</span></td></tr>
+        <tr><td>Permission scope</td><td>Broader than the documented release task requires</td></tr>
+      </table>
+      <p>
+        The workload identity is approved, but its permissions appear broader
+        than its stated purpose. Non-human identities need their own least-privilege
+        reviews; they are not safe simply because no person signs in with them.
+      </p>`
+  },
+
+  change: {
+    label: "EXHIBIT C · CHANGE HISTORY",
+    title: "A temporary exception that stayed",
+    html: `
+      <table class="data">
+        <tr><th>Date</th><th>Change record</th><th>State</th></tr>
+        <tr><td>12 Feb</td><td>Temporary workspace secret access added to support a release issue.</td><td><span class="tag">Approved</span></td></tr>
+        <tr><td>13 Feb</td><td>Release completed; ticket marked resolved.</td><td><span class="tag">Closed</span></td></tr>
+        <tr><td>30 days later</td><td>Exception expiry field left blank; no removal task recorded.</td><td><span class="tag bad">Still active</span></td></tr>
+        <tr><td>Current review</td><td>Exception not referenced in the latest access review.</td><td><span class="tag warn">Unreviewed</span></td></tr>
+      </table>
+      <p>
+        The exception was initially approved for a legitimate purpose. It had
+        no enforced expiry and was not revisited after the need ended. This
+        contributes to the path but is not the whole explanation by itself.
+      </p>`
+  },
+
+  architecture: {
+    label: "EXHIBIT D · ARCHITECTURE NOTE",
+    title: "The trust chain was never reviewed end to end",
+    html: `
+      <p>The design review describes each component separately:</p>
+      <ul>
+        <li>Workspace membership is managed by Engineering.</li>
+        <li>Secret storage is managed by the Platform team.</li>
+        <li>Production service permissions are managed by the Application team.</li>
+      </ul>
+      <p>
+        The note contains no review showing how workspace membership, secret
+        retrieval, workload identity authority, and production permissions
+        combine into an effective path.
+      </p>
+      <div class="path">
+        <div class="node"><b>Human identity</b><small>Workspace access</small></div>
+        <div class="arrow">→</div>
+        <div class="node"><b>Secret</b><small>Credential bridge</small></div>
+        <div class="arrow">→</div>
+        <div class="node"><b>Workload</b><small>Service authority</small></div>
+      </div>
+      <p>
+        <strong>Important:</strong> this establishes a gap in architecture review.
+        The incident team must still correlate logs and configuration to confirm
+        whether this exact path was used.
+      </p>`
+  }
+};
+
+const opened = new Set();
+const buttons = [...document.querySelectorAll(".evidence")];
+const drawer = document.getElementById("drawer");
+const clue = document.getElementById("clue");
+const hint = document.getElementById("hint");
+
+function update() {
+  document.getElementById("count").textContent = `${opened.size} / 4 opened`;
+  document.getElementById("fill").style.width = (opened.size / 4 * 100) + "%";
+
+  document.getElementById("stageTitle").textContent =
+    opened.size === 4 ? "02 / Evidence reviewed" : "01 / The alert";
+
+  document.getElementById("stageSub").textContent =
+    opened.size === 4
+      ? "All exhibits are open. Connect the evidence and submit your finding."
+      : "Inspect the exhibits to reconstruct the access path.";
+
+  document.getElementById("stageNo").textContent =
+    opened.size === 4 ? "STAGE 02 OF 04" : "STAGE 01 OF 04";
+}
+
+buttons.forEach(button => {
+  button.addEventListener("click", () => {
+    const exhibit = exhibits[button.dataset.key];
+
+    opened.add(button.dataset.key);
+    button.classList.add("opened");
+    button.querySelector(".estate").textContent = "Reviewed";
+
+    update();
+
+    document.getElementById("clueLabel").textContent = exhibit.label;
+    clue.innerHTML = `<h3>${exhibit.title}</h3>${exhibit.html}`;
+
+    drawer.classList.add("show");
+    drawer.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+});
+
+document.getElementById("close").addEventListener("click", () => {
+  drawer.classList.remove("show");
+});
+
+document.getElementById("begin").addEventListener("click", event => {
+  event.currentTarget.textContent = "Investigation started ✓";
+  event.currentTarget.disabled = true;
+
+  document.querySelector(".time").textContent =
+    "CASE OPEN · MONDAY · 4:17 PM";
+
+  document.querySelector(".elist").scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+});
+
+document.getElementById("submit").addEventListener("click", () => {
+  const value = document.getElementById("finding").value.trim();
+
+  if (opened.size < 4) {
+    hint.textContent =
+      "Open all four exhibits before revealing the investigation. The discovery is designed to come from connecting the evidence.";
+    hint.classList.remove("hidden");
+
+    document.querySelector(".elist").scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+    return;
+  }
+
+  if (value.length < 20) {
+    hint.textContent =
+      "Add a little more detail: describe the likely access path or the relationship that creates risk.";
+    hint.classList.remove("hidden");
+    document.getElementById("finding").focus();
+    return;
+  }
+
+  hint.classList.add("hidden");
+  document.getElementById("reveal").classList.add("show");
+
+  document.getElementById("stageTitle").textContent =
+    "03 / Investigation revealed";
+
+  document.getElementById("stageSub").textContent =
+    "Compare your theory with the reconstructed access path.";
+
+  document.getElementById("stageNo").textContent = "STAGE 03 OF 04";
+  document.getElementById("fill").style.width = "100%";
+
+  document.getElementById("reveal").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+});
+
+// HubSpot submission.
+// The findings are sent to a HubSpot contact property.
+// Configure the IDs and property name before using this in production.
+document.getElementById("hubspotSubmission").addEventListener(
+  "submit",
+  async event => {
+    event.preventDefault();
+
+    const status = document.getElementById("submissionStatus");
+    const button = document.getElementById("sendFinding");
+    const finding = document.getElementById("finding").value.trim();
+
+    if (opened.size < 4 || finding.length < 20) {
+      status.textContent =
+        "Please complete the evidence review and write your finding before submitting.";
+      return;
+    }
+
+    if (
+      HUBSPOT_PORTAL_ID === "YOUR_HUBSPOT_PORTAL_ID" ||
+      HUBSPOT_FORM_ID === "YOUR_HUBSPOT_FORM_GUID"
+    ) {
+      status.textContent =
+        "Not connected yet. Add your HubSpot Portal ID and Form ID in the setup section of this HTML file, then upload the updated file.";
+      return;
+    }
+
+    const first = document.getElementById("firstName").value.trim();
+    const last = document.getElementById("lastName").value.trim();
+    const email = document.getElementById("workEmail").value.trim();
+
+    button.disabled = true;
+    button.textContent = "Submitting…";
+    status.textContent = "Sending your finding to HubSpot…";
+
+    const payload = {
+      fields: [
+        { name: "firstname", value: first },
+        { name: "lastname", value: last },
+        { name: "email", value: email },
+        { name: "investigation_finding", value: finding }
+      ],
+      context: {
+        pageUri: window.location.href,
+        pageName: "The Access Trail | SecurDI"
+      }
+    };
+
+    try {
+      const response = await fetch(
+        `https://api.hsforms.com/submissions/v3/integration/submit/${encodeURIComponent(HUBSPOT_PORTAL_ID)}/${encodeURIComponent(HUBSPOT_FORM_ID)}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        }
+      );
+
+      if (!response.ok) {
+        let detail = "";
+
+        try {
+          const data = await response.json();
+          detail = data.message || data.errors?.[0]?.message || "";
+        } catch (error) {}
+
+        throw new Error(detail || `HubSpot returned ${response.status}`);
+      }
+
+      status.textContent =
+        "Submission received. Thank you—your finding has been sent to SecurDI.";
+
+      button.textContent = "Submitted ✓";
+
+    } catch (error) {
+      status.textContent =
+        "We couldn't confirm the submission. Please try again or contact the campaign organiser. Details: " +
+        error.message;
+
+      button.disabled = false;
+      button.textContent = "Try submission again →";
+    }
+  }
+);
+
+function reset() {
+  opened.clear();
+
+  buttons.forEach(button => {
+    button.classList.remove("opened");
+    button.querySelector(".estate").textContent = "Sealed";
+  });
+
+  document.getElementById("finding").value = "";
+  document.getElementById("reveal").classList.remove("show");
+  drawer.classList.remove("show");
+
+  const begin = document.getElementById("begin");
+  begin.disabled = false;
+  begin.textContent = "Begin investigation →";
+
+  document.querySelector(".time").textContent =
+    "Monday · 4:17 PM · Production environment";
+
+  hint.classList.add("hidden");
+  update();
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.getElementById("reset").addEventListener("click", reset);
+document.getElementById("again").addEventListener("click", reset);
+
+document.getElementById("print").addEventListener("click", () => {
+  window.print();
+});
+
+update();
+</script>
+</body>
+</html>
